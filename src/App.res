@@ -23,7 +23,7 @@ let make = () => {
     <TokenContext.Provider value={token, setToken: storeToken}>
       <p> {token->Belt.Option.getWithDefault("-")->React.string} </p>
       {switch userRequestData {
-      | NotAsked | Loading(None) => "Loading"->React.string
+      | NotAsked | Loading(None) => <Loading />
       | LoadFailed(errorMessage) => <NonMemberArea />
       | Loading(Some(user)) | LoadSuccess(user) => <MemberArea />
       }}
