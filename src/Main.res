@@ -1,4 +1,4 @@
-%%raw("import '/src/index.css'")
+%%raw("import '/src/styles/index.scss'")
 
 switch ReactDOM.querySelector("#root") {
 | Some(domElement) =>
