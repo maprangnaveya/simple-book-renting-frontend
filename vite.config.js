@@ -7,7 +7,7 @@ import { Schema, ValidateEnv } from "@julr/vite-plugin-validate-env";
 export default defineConfig({
   plugins: [
     react({
-      include: ["**/*.res.mjs"],
+      include: ["./lib/es6/src/*.res.mjs"],
     }),
     ValidateEnv({
       VITE_APP_TITLE: Schema.string(),
