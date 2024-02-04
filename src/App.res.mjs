@@ -5,6 +5,8 @@ import * as Button from "./Button.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
+console.log(">>> api_url", import.meta.env.VITE_API_URL);
+
 function App(props) {
   var match = React.useState(function () {
         return 0;
@@ -50,4 +52,4 @@ var make = App;
 export {
   make ,
 }
-/* react Not a pure module */
+/*  Not a pure module */
