@@ -15,12 +15,16 @@
   "suffix": ".res.mjs",
   "bs-dependencies": [
     "@rescript/core",
-    "@rescript/react"
+    "@rescript/react",
+    "@rescript-mui/material",
+    "@glennsl/rescript-json-combinators"
   ],
   "bsc-flags": [
-    "-open RescriptCore"
+    "-open RescriptCore",
+    "-open JsonCombinators"
   ],
   "jsx": {
+    "mode": "automatic",
     "version": 4
   }
 }
