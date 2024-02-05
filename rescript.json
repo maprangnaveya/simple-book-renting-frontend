@@ -16,10 +16,12 @@
   "bs-dependencies": [
     "@rescript/core",
     "@rescript/react",
-    "@rescript-mui/material"
+    "@rescript-mui/material",
+    "@glennsl/rescript-json-combinators"
   ],
   "bsc-flags": [
-    "-open RescriptCore"
+    "-open RescriptCore",
+    "-open JsonCombinators"
   ],
   "jsx": {
     "mode": "automatic",
