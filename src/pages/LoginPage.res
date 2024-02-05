@@ -1,6 +1,6 @@
 open Mui
 
-type loginApiRequest = ApiRequest.t<bool, string>
+type loginApiRequest = ApiRequest.t<bool, option<string>>
 
 type action = RequestLogin(loginApiRequest) | SetEmail(string) | SetPassword(string)
 
@@ -26,7 +26,31 @@ let make = () => {
   )
   let isLoading = ApiRequest.isLoading(state.loginApiRequest)
 
-  <form className="login-form" onSubmit={e => ()}>
+  <form
+    className="login-form"
+    onSubmit={e => {
+      ReactEvent.Form.preventDefault(e)
+
+      RequestLogin(ApiRequest.Loading(None))->dispatch
+
+      ApiAuth.login(~email=state.email, ~password=state.password)
+      ->Promise.then((result: result<string, string>) => {
+        Js.log2(">>> aa:", result)
+        switch result {
+        | Ok(_) => RequestLogin(ApiRequest.LoadSuccess(true))
+        | Error(errorMsg) => RequestLogin(ApiRequest.LoadFailed(Some(errorMsg)))
+        }
+        ->dispatch
+        ->Promise.resolve
+      })
+      ->Promise.catch(err => {
+        Js.log2(">>> err:", err)
+        RequestLogin(ApiRequest.LoadFailed(None))
+        ->dispatch
+        ->Promise.resolve
+      })
+      ->ignore
+    }}>
     <FormControl>
       <Typography> {"Sign In to Your Account"->React.string} </Typography>
       <TextField
@@ -59,6 +83,15 @@ let make = () => {
         {"Don't have an account? Get Started"->React.string}
       </Link>
     </FormControl>
-    {isLoading ? <Loading /> : React.null}
+    {switch state.loginApiRequest {
+    | Loading(_) => <Loading />
+    | LoadFailed(optErrorMessage) =>
+      <Typography variant=Typography.Body2>
+        {optErrorMessage
+        ->Belt.Option.getWithDefault("Something went wrong, please try again")
+        ->React.string}
+      </Typography>
+    | _ => React.null
+    }}
   </form>
 }
