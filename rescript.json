@@ -22,6 +22,7 @@
     "-open RescriptCore"
   ],
   "jsx": {
+    "mode": "automatic",
     "version": 4
   }
 }
