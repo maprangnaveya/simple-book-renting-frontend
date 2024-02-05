@@ -14,6 +14,8 @@ let initValue: contextValue = {
 
 let context = React.createContext(initValue)
 
+let getContext = () => React.useContext(context)
+
 module Provider = {
   let make = React.Context.provider(context)
 }

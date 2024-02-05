@@ -20,6 +20,7 @@ let reducer = (state, action) => {
 
 @react.component
 let make = () => {
+  let {setToken} = TokenContext.getContext()
   let (state, dispatch) = React.useReducer(
     reducer,
     {email: "", password: "", loginApiRequest: ApiRequest.NotAsked},
@@ -37,11 +38,12 @@ let make = () => {
       ->Promise.then((result: result<string, string>) => {
         Js.log2(">>> aa:", result)
         switch result {
-        | Ok(_) => RequestLogin(ApiRequest.LoadSuccess(true))
-        | Error(errorMsg) => RequestLogin(ApiRequest.LoadFailed(Some(errorMsg)))
-        }
-        ->dispatch
-        ->Promise.resolve
+        | Ok(token) =>
+          RequestLogin(ApiRequest.LoadSuccess(true))->dispatch
+
+          setToken(Some(token))
+        | Error(errorMsg) => RequestLogin(ApiRequest.LoadFailed(Some(errorMsg)))->dispatch
+        }->Promise.resolve
       })
       ->Promise.catch(err => {
         Js.log2(">>> err:", err)
