@@ -26,12 +26,17 @@ module Decode = {
   }
 }
 
-let request = async (~url, ~method: requestMethod, ~body=?, ~decode) => {
+let request = async (~url, ~method: requestMethod, ~body=?, ~token=?, ~decode) => {
+  let headersDict = Js.Dict.empty()
+  headersDict->Js.Dict.set("Content-Type", "application/json")
+  switch token {
+  | None => ()
+  | Some(tokenKey) => headersDict->Js.Dict.set("Authorization", `Token ${tokenKey}`)
+  }
+
   let params = {
     "method": method,
-    "headers": {
-      "Content-Type": "application/json",
-    },
+    "headers": headersDict,
     "body": body->Belt.Option.map(Js.Json.stringifyAny),
   }
 
