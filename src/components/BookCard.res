@@ -26,7 +26,11 @@ let make = (~book: Book.t) => {
     className="book-card"
     onMouseEnter={handlePopoverOpen}
     onMouseLeave={handlePopoverClose}
-    ariaOwns=?{isOpen ? Some(elementId) : None}>
+    ariaOwns=?{isOpen ? Some(elementId) : None}
+    onClick={e => {
+      ReactEvent.Mouse.preventDefault(e)
+      let _ = RescriptReactRouter.push(Links.bookDetail(book.id))
+    }}>
     <CardContent>
       <Image image=book.imageUrl alt={`book-card-${book.isbn}`} />
     </CardContent>
