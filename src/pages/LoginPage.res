@@ -38,8 +38,8 @@ let make = () => {
       ->Promise.then((result: result<string, string>) => {
         switch result {
         | Ok(token) =>
+          let _ = RescriptReactRouter.replace(Links.home)
           RequestLogin(ApiRequest.LoadSuccess(true))->dispatch
-
           setToken(Some(token))
         | Error(errorMsg) => RequestLogin(ApiRequest.LoadFailed(Some(errorMsg)))->dispatch
         }->Promise.resolve
