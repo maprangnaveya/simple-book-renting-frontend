@@ -1,14 +1,8 @@
 open Mui
 
 @react.component
-let make = (
-  ~className: string="",
-  ~maxWidth="1200px",
-  ~padding="none",
-  ~isShowLogout=true,
-  ~children,
-) => {
-  //   let profile = User.Context.getUser()
+let make = (~className: string="", ~maxWidth="1200px", ~padding="none", ~children) => {
+  let {user: optUser} = UserContext.getContext()
 
   <div className={`page-layout pt-6 ${className}`}>
     <div className="page-layout-navbar">
@@ -17,14 +11,21 @@ let make = (
           <p className="text-xl"> {"Simple Renting Book"->React.string} </p>
         </Link>
         <div className="navbar-menu">
-          <Link href=Links.setting>
-            <img src="/images/icons/setting.svg" />
-          </Link>
-          {isShowLogout
-            ? <Link href=Links.logout>
+          {switch optUser {
+          | None =>
+            <Link href=Links.login>
+              <img src="/images/icons/login.svg" />
+            </Link>
+          | Some(_) =>
+            <>
+              <Link href=Links.setting>
+                <img src="/images/icons/setting.svg" />
+              </Link>
+              <Link href=Links.logout>
                 <img src="/images/icons/logout.svg" />
               </Link>
-            : React.null}
+            </>
+          }}
         </div>
       </div>
     </div>
