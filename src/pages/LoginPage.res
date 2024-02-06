@@ -44,7 +44,7 @@ let make = () => {
         | Error(errorMsg) => RequestLogin(ApiRequest.LoadFailed(Some(errorMsg)))->dispatch
         }->Promise.resolve
       })
-      ->Promise.catch(err => {
+      ->Promise.catch(_err => {
         RequestLogin(ApiRequest.LoadFailed(None))
         ->dispatch
         ->Promise.resolve
