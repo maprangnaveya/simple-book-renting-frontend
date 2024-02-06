@@ -7,6 +7,7 @@ type t = {
   authors: array<author>,
   publishedAt: option<Js.Date.t>,
   imageUrl: string,
+  availableInStore: int,
 }
 
 module Decode = {
@@ -21,5 +22,6 @@ module Decode = {
       Js.Date.fromString,
     ),
     imageUrl: field.required("image", option(string))->Belt.Option.getWithDefault(""),
+    availableInStore: field.required("available_in_store", int),
   })
 }
