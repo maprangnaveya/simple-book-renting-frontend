@@ -4,7 +4,7 @@ open Mui
 let make = (~title: string, ~books: array<Book.t>, ~isLoading: bool=false) => {
   <div>
     //   TODO: Pagination
-    <p className="text-3xl"> {title->React.string} </p>
+    <p className="text-3xl pb-4"> {title->React.string} </p>
     {isLoading ? <Loading /> : React.null}
     <Grid
       container=true
