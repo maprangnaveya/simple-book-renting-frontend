@@ -1,4 +1,4 @@
-@module("../../../../public/images/no-image-cover.png?url") external noImageSrc: 'png = "default"
+@module("/images/no-image-cover.png?url") external noImageSrc: 'png = "default"
 @set external setSrc: ('event, string) => unit = "src"
 
 @react.component
