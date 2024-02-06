@@ -17,8 +17,6 @@ let make = (
       ->Belt.Option.getWithDefault(noImageSrc)
       ->(
         src => {
-          Js.log2("!!! src: ", src)
-          Js.log2("!!! event: ", event)
           event->ReactEvent.Media.currentTarget->setSrc(src)
         }
       )

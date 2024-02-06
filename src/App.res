@@ -42,9 +42,8 @@ let make = () => {
   let clearToken = () => {
     storeToken(None)
     let _ = RescriptReactRouter.replace(Links.home)
-    Js.log("------ CLEAR TOKEN -----")
   }
-  Js.log2(">>>> optUser: ", optUser)
+
   <TokenContext.Provider value={token, setToken: storeToken, clearToken}>
     <UserContext.Provider value={user: optUser, setUser}>
       <PageLayout>
