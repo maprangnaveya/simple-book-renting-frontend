@@ -1,5 +1,3 @@
-open Mui
-
 type booksWithPagination = Apis.pagination<Book.t>
 
 type booksApiRequest = ApiRequest.t<booksWithPagination, string>
@@ -30,7 +28,6 @@ let make = () => {
   )
 
   React.useEffect(_ => {
-    Js.log("HOME PAGE useEffect1")
     ApiRequest.Loading(None)->RequestBooks->dispatch
     Apis.getBooksWithPagination(~page=state.page, ~token?, ())
     ->Promise.then(result => {
