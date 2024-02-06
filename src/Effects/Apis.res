@@ -33,3 +33,12 @@ let getBooksWithPagination = (~page=1, ~token=?, ()) => {
     ~decode=Decode.pagination(~resultDecode=Book.Decode.t),
   )
 }
+
+let getBook = (~token, ~id) => {
+  RequestUtils.request(
+    ~url=bookDetailPath(Belt.Int.toString(id)),
+    ~method=RequestUtils.GET,
+    ~token,
+    ~decode=Book.Decode.t,
+  )
+}
