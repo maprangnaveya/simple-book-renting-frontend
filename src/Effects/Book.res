@@ -5,6 +5,7 @@ type t = {
   title: string,
   authors: array<author>,
   publishedAt: option<Js.Date.t>,
+  imageUrl: string,
 }
 
 module Decode = {
@@ -17,5 +18,6 @@ module Decode = {
     publishedAt: field.required("published_at", option(string))->Belt.Option.map(
       Js.Date.fromString,
     ),
+    imageUrl: field.required("image", option(string))->Belt.Option.getWithDefault(""),
   })
 }
