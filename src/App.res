@@ -45,15 +45,15 @@ let make = () => {
     Js.log("------ CLEAR TOKEN -----")
   }
   Js.log2(">>>> optUser: ", optUser)
-  <PageLayout>
-    <TokenContext.Provider value={token, setToken: storeToken, clearToken}>
-      <UserContext.Provider value={user: optUser, setUser}>
+  <TokenContext.Provider value={token, setToken: storeToken, clearToken}>
+    <UserContext.Provider value={user: optUser, setUser}>
+      <PageLayout>
         {switch userRequestData {
         | NotAsked | Loading(None) => <Loading />
         | LoadFailed(_errorMessage) => <NonMemberArea />
         | Loading(Some(_user)) | LoadSuccess(_user) => <MemberArea />
         }}
-      </UserContext.Provider>
-    </TokenContext.Provider>
-  </PageLayout>
+      </PageLayout>
+    </UserContext.Provider>
+  </TokenContext.Provider>
 }
