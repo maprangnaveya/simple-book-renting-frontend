@@ -14,6 +14,8 @@ module Decode = {
     isbn: field.required("isbn", string),
     title: field.required("title", string),
     authors: field.required("authors", array(string)),
-    publishedAt: field.required("publishedAt", option(string))->Belt.Option.map(Js.Date.fromString),
+    publishedAt: field.required("published_at", option(string))->Belt.Option.map(
+      Js.Date.fromString,
+    ),
   })
 }
