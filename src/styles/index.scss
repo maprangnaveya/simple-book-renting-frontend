@@ -2,5 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+$gray-shadow: #232323;
+
 @import '_Book';
+@import '_PageLayout';
 @import '_Login';
