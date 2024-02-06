@@ -1,0 +1,47 @@
+.page-layout {
+  background-image: linear-gradient(246deg, #f0d7f5, #deace5, #c275cc);
+  color: white;
+  min-height: 100vh;
+
+  .page-layout-navbar {
+    height: 61px;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      border-bottom: 1px solid $gray-shadow;
+      mix-blend-mode: exclusion;
+    }
+
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      padding: 0;
+      margin: 0 auto;
+
+      .navbar-menu {
+        display: flex;
+        gap: 16px;
+      }
+
+      a>p {
+        color: $text-main;
+      }
+    }
+  }
+
+  .page-layout-content {
+    min-height: calc(100vh - 62px);
+
+    .page-layout-children {
+      flex: 1;
+      overflow-x: hidden;
+      margin-top: 14px;
+    }
+  }
+}

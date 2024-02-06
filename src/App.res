@@ -5,9 +5,10 @@ let make = () => {
 
   let storeToken = newToken => {
     setToken(_ => newToken)
-    newToken
-    ->Belt.Option.map(newToken => Utils.setLocalStorage(TokenContext.tokenKey, newToken))
-    ->ignore
+    switch newToken {
+    | None => Utils.removeLocalStorage(TokenContext.tokenKey)
+    | Some(newToken) => Utils.setLocalStorage(TokenContext.tokenKey, newToken)
+    }
   }
 
   React.useEffect(_ => {
@@ -27,14 +28,31 @@ let make = () => {
     None
   }, [token])
 
-  <div className="p-6">
-    <TokenContext.Provider value={token, setToken: storeToken}>
-      <p> {token->Belt.Option.getWithDefault("-")->React.string} </p>
-      {switch userRequestData {
-      | NotAsked | Loading(None) => <Loading />
-      | LoadFailed(_errorMessage) => <NonMemberArea />
-      | Loading(Some(_user)) | LoadSuccess(_user) => <MemberArea />
-      }}
-    </TokenContext.Provider>
-  </div>
+  let optUser: option<User.t> = switch userRequestData {
+  | LoadSuccess(user) | Loading(Some(user)) => Some(user)
+  | _ => None
+  }
+
+  let setUser = updatedOptUser => {
+    switch updatedOptUser {
+    | None => ()
+    | Some(updatedUser) => setUserRequestData(_ => LoadSuccess(updatedUser))
+    }
+  }
+  let clearToken = () => {
+    storeToken(None)
+    let _ = RescriptReactRouter.replace(Links.home)
+  }
+
+  <TokenContext.Provider value={token, setToken: storeToken, clearToken}>
+    <UserContext.Provider value={user: optUser, setUser}>
+      <PageLayout>
+        {switch userRequestData {
+        | NotAsked | Loading(None) => <Loading />
+        | LoadFailed(_errorMessage) => <NonMemberArea />
+        | Loading(Some(_user)) | LoadSuccess(_user) => <MemberArea />
+        }}
+      </PageLayout>
+    </UserContext.Provider>
+  </TokenContext.Provider>
 }

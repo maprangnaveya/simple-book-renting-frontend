@@ -1,5 +1,3 @@
-open Mui
-
 type booksWithPagination = Apis.pagination<Book.t>
 
 type booksApiRequest = ApiRequest.t<booksWithPagination, string>
@@ -30,7 +28,6 @@ let make = () => {
   )
 
   React.useEffect(_ => {
-    Js.log("HOME PAGE useEffect1")
     ApiRequest.Loading(None)->RequestBooks->dispatch
     Apis.getBooksWithPagination(~page=state.page, ~token?, ())
     ->Promise.then(result => {
@@ -48,21 +45,9 @@ let make = () => {
     None
   }, [token])
 
-  <div>
-    //   TODO: Pagination
-    <Grid
-      container=true
-      spacing={Grid.Int(12)}
-      justifyContent=System.Value.String("space-around")
-      alignItems=System.Value.Center>
-      {state.allBooks
-      ->Belt.Array.mapWithIndex((idx, book: Book.t) => {
-        <Grid
-          key={`book-list-element-${Belt.Int.toString(idx)}-${book.isbn}`} item=true lg={Grid.Auto}>
-          <BookCard book />
-        </Grid>
-      })
-      ->React.array}
-    </Grid>
-  </div>
+  <BookShelf
+    title="Books"
+    books=state.allBooks
+    isLoading={Js.Array2.length(state.allBooks) == 0 && state.booksApiRequest->ApiRequest.isLoading}
+  />
 }

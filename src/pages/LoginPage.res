@@ -36,17 +36,15 @@ let make = () => {
 
       ApiAuth.login(~email=state.email, ~password=state.password)
       ->Promise.then((result: result<string, string>) => {
-        Js.log2(">>> aa:", result)
         switch result {
         | Ok(token) =>
+          let _ = RescriptReactRouter.replace(Links.home)
           RequestLogin(ApiRequest.LoadSuccess(true))->dispatch
-
           setToken(Some(token))
         | Error(errorMsg) => RequestLogin(ApiRequest.LoadFailed(Some(errorMsg)))->dispatch
         }->Promise.resolve
       })
-      ->Promise.catch(err => {
-        Js.log2(">>> err:", err)
+      ->Promise.catch(_err => {
         RequestLogin(ApiRequest.LoadFailed(None))
         ->dispatch
         ->Promise.resolve
@@ -80,10 +78,10 @@ let make = () => {
       <Button type_=ButtonBase.Submit variant=Button.Outlined disabled=isLoading>
         {"Login"->React.string}
       </Button>
-      // TODO: <Link href="/forgotpassword" variant=Typography.Body2>{"Forgot your password?"->React.string} </Link>
-      <Link href="/register" variant=Typography.Body2>
+      // TODO: <LinkCustom href="/forgotpassword" variant=Typography.Body2>{"Forgot your password?"->React.string} </LinkCustom>
+      <LinkCustom href=Links.register variant=Typography.Body2>
         {"Don't have an account? Get Started"->React.string}
-      </Link>
+      </LinkCustom>
     </FormControl>
     {switch state.loginApiRequest {
     | Loading(_) => <Loading />
