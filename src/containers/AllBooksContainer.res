@@ -44,9 +44,8 @@ let make = () => {
     ->ignore
     None
   }, [token])
-  <>
-    <BookShelf
-      title="Books" books=state.allBooks isLoading={state.booksApiRequest->ApiRequest.isLoading}
-    />
-  </>
+
+  <BookShelf
+    title="Books" books=state.allBooks isLoading={state.booksApiRequest->ApiRequest.isLoading}
+  />
 }

@@ -27,14 +27,11 @@ let make = () => {
     None
   }, [token])
 
-  <div className="p-6">
-    <TokenContext.Provider value={token, setToken: storeToken}>
-      <p> {token->Belt.Option.getWithDefault("-")->React.string} </p>
-      {switch userRequestData {
-      | NotAsked | Loading(None) => <Loading />
-      | LoadFailed(_errorMessage) => <NonMemberArea />
-      | Loading(Some(_user)) | LoadSuccess(_user) => <MemberArea />
-      }}
-    </TokenContext.Provider>
-  </div>
+  <TokenContext.Provider value={token, setToken: storeToken}>
+    {switch userRequestData {
+    | NotAsked | Loading(None) => <Loading />
+    | LoadFailed(_errorMessage) => <NonMemberArea />
+    | Loading(Some(_user)) | LoadSuccess(_user) => <MemberArea />
+    }}
+  </TokenContext.Provider>
 }
