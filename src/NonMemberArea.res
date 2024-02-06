@@ -4,10 +4,9 @@ let make = () => {
 
   {
     switch url.path {
-    | list{} => <HomePage />
     | list{"login"} => <LoginPage />
     | list{"register"} => "Register"->React.string
-    | _ => "Not found"->React.string
+    | _ => <HomePage />
     }
   }
 }
