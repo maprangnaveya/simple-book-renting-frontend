@@ -8,12 +8,13 @@ let make = (
   ~isShowLogout=true,
   ~children,
 ) => {
+  //   let profile = User.Context.getUser()
 
   <div className={`page-layout pt-6 ${className}`}>
     <div className="page-layout-navbar">
       <div className="navbar-container">
-        <Link href=Links.home>
-          <img src="/images/logo.png" className="page-navbar-logo" />
+        <Link href=Links.home underline=Link.Hover>
+          <p className="text-xl"> {"Simple Renting Book"->React.string} </p>
         </Link>
         <div className="navbar-menu">
           <Link href=Links.setting>
