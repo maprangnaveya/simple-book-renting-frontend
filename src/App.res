@@ -5,9 +5,10 @@ let make = () => {
 
   let storeToken = newToken => {
     setToken(_ => newToken)
-    newToken
-    ->Belt.Option.map(newToken => Utils.setLocalStorage(TokenContext.tokenKey, newToken))
-    ->ignore
+    switch newToken {
+    | None => Utils.removeLocalStorage(TokenContext.tokenKey)
+    | Some(newToken) => Utils.setLocalStorage(TokenContext.tokenKey, newToken)
+    }
   }
 
   React.useEffect(_ => {
@@ -38,9 +39,14 @@ let make = () => {
     | Some(updatedUser) => setUserRequestData(_ => LoadSuccess(updatedUser))
     }
   }
-
+  let clearToken = () => {
+    storeToken(None)
+    let _ = RescriptReactRouter.replace(Links.home)
+    Js.log("------ CLEAR TOKEN -----")
+  }
+  Js.log2(">>>> optUser: ", optUser)
   <PageLayout>
-    <TokenContext.Provider value={token, setToken: storeToken}>
+    <TokenContext.Provider value={token, setToken: storeToken, clearToken}>
       <UserContext.Provider value={user: optUser, setUser}>
         {switch userRequestData {
         | NotAsked | Loading(None) => <Loading />
