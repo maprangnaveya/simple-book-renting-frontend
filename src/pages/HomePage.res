@@ -3,8 +3,10 @@ open Mui
 @react.component
 let make = () => {
   <PageLayout>
-    <h1> {`Hello, UserA`->React.string} </h1>
-    <RecommendedBookContainer />
-    <AllBooksContainer />
+    <Stack spacing=Stack.Number(3.)>
+      <p className="text-3xl"> {`Hello, M`->React.string} </p>
+      <RecommendedBookContainer />
+      <AllBooksContainer />
+    </Stack>
   </PageLayout>
 }
