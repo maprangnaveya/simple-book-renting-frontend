@@ -49,14 +49,15 @@ let make = () => {
   }, [token])
 
   <div>
-    <Grid container=true spacing={Grid.Int(2)}>
+    <Grid
+      container=true
+      spacing={Grid.Int(12)}
+      justifyContent=System.Value.String("space-around")
+      alignItems=System.Value.Center>
       {state.allBooks
       ->Belt.Array.mapWithIndex((idx, book: Book.t) => {
         <Grid
-          key={`book-list-element-${Belt.Int.toString(idx)}-${book.isbn}`}
-          item=true
-          xs={Grid.Number(6)}
-          md={Grid.Number(3)}>
+          key={`book-list-element-${Belt.Int.toString(idx)}-${book.isbn}`} item=true lg={Grid.Auto}>
           <BookCard book />
         </Grid>
       })
