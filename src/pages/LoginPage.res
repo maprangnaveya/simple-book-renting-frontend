@@ -36,7 +36,6 @@ let make = () => {
 
       ApiAuth.login(~email=state.email, ~password=state.password)
       ->Promise.then((result: result<string, string>) => {
-        Js.log2(">>> aa:", result)
         switch result {
         | Ok(token) =>
           RequestLogin(ApiRequest.LoadSuccess(true))->dispatch
@@ -46,7 +45,6 @@ let make = () => {
         }->Promise.resolve
       })
       ->Promise.catch(err => {
-        Js.log2(">>> err:", err)
         RequestLogin(ApiRequest.LoadFailed(None))
         ->dispatch
         ->Promise.resolve
@@ -81,7 +79,7 @@ let make = () => {
         {"Login"->React.string}
       </Button>
       // TODO: <Link href="/forgotpassword" variant=Typography.Body2>{"Forgot your password?"->React.string} </Link>
-      <Link href="/register" variant=Typography.Body2>
+      <Link href=Links.register variant=Typography.Body2>
         {"Don't have an account? Get Started"->React.string}
       </Link>
     </FormControl>
