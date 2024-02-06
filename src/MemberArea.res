@@ -4,7 +4,7 @@ let make = () => {
 
   {
     switch url.path {
-    | list{} => "Home"->React.string
+    | list{} => <HomePage />
     | list{"settings"} => "Settings"->React.string
     | _ => "Not found"->React.string
     }
