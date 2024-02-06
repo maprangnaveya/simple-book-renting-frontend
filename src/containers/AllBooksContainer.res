@@ -46,6 +46,8 @@ let make = () => {
   }, [token])
 
   <BookShelf
-    title="Books" books=state.allBooks isLoading={state.booksApiRequest->ApiRequest.isLoading}
+    title="Books"
+    books=state.allBooks
+    isLoading={Js.Array2.length(state.allBooks) == 0 && state.booksApiRequest->ApiRequest.isLoading}
   />
 }
