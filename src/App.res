@@ -27,11 +27,27 @@ let make = () => {
     None
   }, [token])
 
-  <TokenContext.Provider value={token, setToken: storeToken}>
-    {switch userRequestData {
-    | NotAsked | Loading(None) => <Loading />
-    | LoadFailed(_errorMessage) => <NonMemberArea />
-    | Loading(Some(_user)) | LoadSuccess(_user) => <MemberArea />
-    }}
-  </TokenContext.Provider>
+  let optUser: option<User.t> = switch userRequestData {
+  | LoadSuccess(user) | Loading(Some(user)) => Some(user)
+  | _ => None
+  }
+
+  let setUser = updatedOptUser => {
+    switch updatedOptUser {
+    | None => ()
+    | Some(updatedUser) => setUserRequestData(_ => LoadSuccess(updatedUser))
+    }
+  }
+
+  <PageLayout>
+    <TokenContext.Provider value={token, setToken: storeToken}>
+      <UserContext.Provider value={user: optUser, setUser}>
+        {switch userRequestData {
+        | NotAsked | Loading(None) => <Loading />
+        | LoadFailed(_errorMessage) => <NonMemberArea />
+        | Loading(Some(_user)) | LoadSuccess(_user) => <MemberArea />
+        }}
+      </UserContext.Provider>
+    </TokenContext.Provider>
+  </PageLayout>
 }
