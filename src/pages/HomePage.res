@@ -27,36 +27,11 @@ let make = () => {
     {booksApiRequest: ApiRequest.NotAsked, page: 1, allBooks: []},
   )
 
-  React.useEffect(_ => {
-    Js.log("HOME PAGE useEffect1")
-    ApiRequest.Loading(None)->RequestBooks->dispatch
-    Apis.getBooksWithPagination(~page=state.page, ~token?, ())
-    ->Promise.then(result => {
-      switch result {
-      | Ok(booksWithPagination) =>
-        // TODO: Append
-        Belt.Array.concat(state.allBooks, booksWithPagination.results)->SetAllBooks->dispatch
-        ApiRequest.LoadSuccess(booksWithPagination)
-      | Error(errorMsg) => ApiRequest.LoadFailed(errorMsg)
-      }
-      ->RequestBooks
-      ->dispatch
-      ->Promise.resolve
-    })
-    ->ignore
-    None
-  }, [token])
   <div>
-    <ul>
-      {state.allBooks
-      ->Belt.Array.mapWithIndex((idx, book: Book.t) => {
-        <li key={`book-list-element-${Belt.Int.toString(idx)}-${book.isbn}`}>
-          {`isbn: ${book.isbn}, title: ${book.title}, author: ${book.authors->Js.Array2.joinWith(
-              ", ",
-            )}`->React.string}
-        </li>
-      })
-      ->React.array}
-    </ul>
+    <Sidebar />
+    <div>
+      <h1> {`Hello, UserA`->React.string} </h1>
+      <BookShelf />
+    </div>
   </div>
 }
