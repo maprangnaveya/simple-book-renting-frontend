@@ -47,22 +47,9 @@ let make = () => {
     ->ignore
     None
   }, [token])
-
-  <div>
-    //   TODO: Pagination
-    <Grid
-      container=true
-      spacing={Grid.Int(12)}
-      justifyContent=System.Value.String("space-around")
-      alignItems=System.Value.Center>
-      {state.allBooks
-      ->Belt.Array.mapWithIndex((idx, book: Book.t) => {
-        <Grid
-          key={`book-list-element-${Belt.Int.toString(idx)}-${book.isbn}`} item=true lg={Grid.Auto}>
-          <BookCard book />
-        </Grid>
-      })
-      ->React.array}
-    </Grid>
-  </div>
+  <>
+    <BookShelf
+      title="Books" books=state.allBooks isLoading={state.booksApiRequest->ApiRequest.isLoading}
+    />
+  </>
 }

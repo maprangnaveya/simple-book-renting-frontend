@@ -31,7 +31,7 @@ let make = () => {
     <Sidebar />
     <div>
       <h1> {`Hello, UserA`->React.string} </h1>
-      <BookShelf />
+      <AllBooksContainer />
     </div>
   </div>
 }
