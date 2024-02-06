@@ -25,11 +25,11 @@ module Decode = {
     })
 }
 
-let getBooksWithPagination = (~page=1, ~token) => {
+let getBooksWithPagination = (~page=1, ~token=?, ()) => {
   RequestUtils.request(
     ~url=booksPath ++ `?page=${Belt.Int.toString(page)}`,
     ~method=RequestUtils.GET,
-    ~token,
+    ~token?,
     ~decode=Decode.pagination(~resultDecode=Book.Decode.t),
   )
 }

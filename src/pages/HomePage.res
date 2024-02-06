@@ -29,25 +29,21 @@ let make = () => {
 
   React.useEffect(_ => {
     Js.log("HOME PAGE useEffect1")
-    switch token {
-    | None => ()
-    | Some(tokenKey) =>
-      ApiRequest.Loading(None)->RequestBooks->dispatch
-      Apis.getBooksWithPagination(~page=state.page, ~token=tokenKey)
-      ->Promise.then(result => {
-        switch result {
-        | Ok(booksWithPagination) =>
-          // TODO: Append
-          booksWithPagination.results->SetAllBooks->dispatch
-          ApiRequest.LoadSuccess(booksWithPagination)
-        | Error(errorMsg) => ApiRequest.LoadFailed(errorMsg)
-        }
-        ->RequestBooks
-        ->dispatch
-        ->Promise.resolve
-      })
-      ->ignore
-    }
+    ApiRequest.Loading(None)->RequestBooks->dispatch
+    Apis.getBooksWithPagination(~page=state.page, ~token?, ())
+    ->Promise.then(result => {
+      switch result {
+      | Ok(booksWithPagination) =>
+        // TODO: Append
+        Belt.Array.concat(state.allBooks, booksWithPagination.results)->SetAllBooks->dispatch
+        ApiRequest.LoadSuccess(booksWithPagination)
+      | Error(errorMsg) => ApiRequest.LoadFailed(errorMsg)
+      }
+      ->RequestBooks
+      ->dispatch
+      ->Promise.resolve
+    })
+    ->ignore
     None
   }, [token])
   <div>
