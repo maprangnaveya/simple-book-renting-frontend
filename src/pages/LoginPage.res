@@ -78,10 +78,10 @@ let make = () => {
       <Button type_=ButtonBase.Submit variant=Button.Outlined disabled=isLoading>
         {"Login"->React.string}
       </Button>
-      // TODO: <Link href="/forgotpassword" variant=Typography.Body2>{"Forgot your password?"->React.string} </Link>
-      <Link href=Links.register variant=Typography.Body2>
+      // TODO: <LinkCustom href="/forgotpassword" variant=Typography.Body2>{"Forgot your password?"->React.string} </LinkCustom>
+      <LinkCustom href=Links.register variant=Typography.Body2>
         {"Don't have an account? Get Started"->React.string}
-      </Link>
+      </LinkCustom>
     </FormControl>
     {switch state.loginApiRequest {
     | Loading(_) => <Loading />

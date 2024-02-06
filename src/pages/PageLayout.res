@@ -7,23 +7,23 @@ let make = (~className: string="", ~maxWidth="1200px", ~padding="none", ~childre
   <div className={`page-layout pt-6 ${className}`}>
     <div className="page-layout-navbar">
       <div className="navbar-container">
-        <Link href=Links.home underline=Link.Hover>
+        <LinkCustom href=Links.home underline=Link.Hover>
           <p className="text-xl"> {"Simple Renting Book"->React.string} </p>
-        </Link>
+        </LinkCustom>
         <div className="navbar-menu">
           {switch optUser {
           | None =>
-            <Link href=Links.login>
-              <img src="/images/icons/login.svg" />
-            </Link>
+            <LinkCustom href=Links.login>
+              <p> {"login"->React.string} </p>
+            </LinkCustom>
           | Some(_) =>
             <>
-              <Link href=Links.setting>
+              <LinkCustom href=Links.setting>
                 <img src="/images/icons/setting.svg" />
-              </Link>
-              <Link href=Links.logout>
+              </LinkCustom>
+              <LinkCustom href=Links.logout>
                 <img src="/images/icons/logout.svg" />
-              </Link>
+              </LinkCustom>
             </>
           }}
         </div>
