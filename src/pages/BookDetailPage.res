@@ -50,7 +50,7 @@ let make = (~id: int) => {
             <Image image=book.imageUrl alt={`book-cover-${book.isbn}`} />
           </Mui.Grid>
           <Mui.Grid
-            key={`book-list-element-${Belt.Int.toString(book.id)}-${book.isbn}`}
+            key={`book-content-element-${Belt.Int.toString(book.id)}-${book.isbn}`}
             item=true
             lg={Mui.Grid.Number(6)}>
             <Mui.Stack>
