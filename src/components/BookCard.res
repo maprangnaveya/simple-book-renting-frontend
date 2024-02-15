@@ -33,24 +33,32 @@ let make = (~book: Book.t) => {
     }}>
     <CardContent>
       <Image image=book.imageUrl alt={`book-card-${book.isbn}`} />
-    </CardContent>
-    <Popover
-      id=elementId
-      open_={isOpen}
-      anchorEl={Popover.Element(_ => anchorEl)}
-      anchorOrigin={{
-        vertical: Popover.Bottom,
-        horizontal: Popover.Center,
-      }}
-      transformOrigin={{
-        vertical: Popover.Top,
-        horizontal: Popover.Center,
-      }}
-      onClose={(_, _) => handlePopoverClose()}
-      disableRestoreFocus=true>
       <Typography sx={Sx.obj({p: System.Value.Number(1.)})}>
         {`${book.title}`->React.string}
       </Typography>
-    </Popover>
+    </CardContent>
+    // <Popover
+    //   id=elementId
+    //   open_={isOpen}
+    //   anchorEl={Popover.Element(_ => anchorEl)}
+    //   anchorOrigin={{
+    //     vertical: Popover.Bottom,
+    //     horizontal: Popover.Center,
+    //   }}
+    //   transformOrigin={{
+    //     vertical: Popover.Top,
+    //     horizontal: Popover.Center,
+    //   }}
+    //   onClose={(e, _) => {
+    //     Js.log2(">>> onclose popover ", book.title)
+    //     ReactEvent.Synthetic.preventDefault(e)
+    //     ReactEvent.Synthetic.stopPropagation(e)
+    //     handlePopoverClose()
+    //   }}
+    //   disableRestoreFocus=true>
+    //   <Typography sx={Sx.obj({p: System.Value.Number(1.)})}>
+    //     {`${book.title}`->React.string}
+    //   </Typography>
+    // </Popover>
   </MuiCardCustom>
 }
